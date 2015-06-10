@@ -32,10 +32,10 @@ if [[ $TRAVIS = "true" ]]; then
 		git log -n 1 --parents
 
 		echo "Pushing"
-		git push https://inglesp@github.com/inglesp/deploy-test-2 master
+		git push https://inglesp@github.com/inglesp/deploy-test-3 master
 
 		# Push output directory to gh-pages branch on GitHub.
-		git subtree push --prefix output https://inglesp@github.com/inglesp/deploy-test-2 gh-pages
+		git subtree push --prefix output https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
 
 		# Clean up.
 		rm .git/credentials
