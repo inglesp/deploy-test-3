@@ -16,22 +16,18 @@ if [[ $TRAVIS = "true" ]]; then
 		# been updated if required when pre-flight-checks.sh ran.  If
 		# the output directory is already up to date then no new commit
 		# will be made.
-		echo "Last log:"
-		git log -n 1 --parents
-
 		echo "Checking out master"
 		git checkout master
 
-		echo "Last log:"
-		git log -n 1 --parents
+		echo ".gitignore before:"
+		cat .gitignore
+		sed -i /^output/d .gitignore
+		echo ".gitignore after:"
+		cat .gitignore
 
 		echo "Committing"
-		sed -i /^output/d .gitignore
 		git add output
 		git commit -m "[skip ci] Travis auto-commit.  Built latest changes."
-
-		echo "Last log"
-		git log -n 1 --parents
 
 		echo "Pushing"
 		git push https://inglesp@github.com/inglesp/deploy-test-3 master
