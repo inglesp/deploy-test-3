@@ -26,6 +26,7 @@ if [[ $TRAVIS = "true" ]]; then
 		git log -n 1 --parents
 
 		echo "Committing"
+		sed -i /^output/d .gitignore
 		git add output
 		git commit -m "[skip ci] Travis auto-commit.  Built latest changes."
 
