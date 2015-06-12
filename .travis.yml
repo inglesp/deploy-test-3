@@ -1,3 +1,0 @@
-language: python
-script: bash pre-flight-checks.sh
-after_success: bash deploy.sh
