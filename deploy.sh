@@ -6,6 +6,9 @@ echo TRAVIS_BRANCH: $TRAVIS_BRANCH
 echo TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST
 echo TRAVIS: $TRAVIS
 
+echo "config before:"
+git config --list
+
 if [[ $TRAVIS = "true" ]]; then
 	if [[ $TRAVIS_BRANCH != "master" || $TRAVIS_PULL_REQUEST != "false" ]]; then
 		# Bail out if Travis is building a branch or is building a Pull Request.
@@ -27,6 +30,9 @@ if [[ $TRAVIS = "true" ]]; then
 	echo "...E"
 fi
 
+echo "config after:"
+git config --list
+
 echo "Deploying!"
 
 # Remove output directory and replace it with the current tip of the gh-pages branch.
@@ -40,7 +46,7 @@ wok
 echo "...H"
 
 # Add and commit any changes.
-pushd output
+cd output
 echo "...I"
 git add .
 echo "...J"
@@ -60,5 +66,5 @@ fi
 # Clean up.
 rm -rf .git
 echo "...N"
-popd
+cd ..
 echo "...O"
