@@ -17,7 +17,7 @@ echo "Deploying!"
 
 # Remove output directory and replace it with the current tip of the gh-pages branch.
 rm -rf output
-git clone https://github.com/inglesp/deploy-test-3.org --branch gh-pages --single-branch output
+git clone https://github.com/inglesp/deploy-test-3 --branch gh-pages --single-branch output
 
 # Update the output directory with recent changes.
 make build
@@ -37,7 +37,7 @@ if [[ $TRAVIS = "true" ]]; then
 	git config user.email "no-reply@pyconuk.org"
 
 	# Push to GitHub.
-	git push https://inglesp@github.com/inglesp/deploy-test-3.org gh-pages
+	git push https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
 else
 	# Push to GitHub.
 	git push
