@@ -10,8 +10,8 @@ if [[ $TRAVIS = "true" ]]; then
 	fi
 
 	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured via Travis web UI.
-	git config --global credential.helper "store --file=.git/credentials"
-	echo "https://inglesp:$GH_TOKEN@github.com" > .git/credentials
+	git config --global credential.helper "store --file=~/git-credentials"
+	echo "https://inglesp:$GH_TOKEN@github.com" > ~/git-credentials
 
 	# Set up config for committing.
 	git config --global user.name "Travis"
