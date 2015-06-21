@@ -37,4 +37,3 @@ git push https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
 
 # Clean up.
 rm -rf .git
-cd ..
