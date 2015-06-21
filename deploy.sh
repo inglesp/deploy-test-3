@@ -16,13 +16,17 @@ if [[ $TRAVIS = "true" ]]; then
 	# Set up config for committing.
 	git config --global user.name "Travis"
 	git config --global user.email "no-reply@pyconuk.org"
+
+	REPO_URL="https://inglesp@github.com/inglesp/deploy-test-3"
+else
+	REPO_URL="git@github.com:inglesp/deploy-test-3.git"
 fi
 
 echo "Deploying!"
 
 # Remove output directory and replace it with the current tip of the gh-pages branch.
 rm -rf output
-git clone git@github.com:inglesp/deploy-test-3.git --branch gh-pages --single-branch output
+git clone $REPO_URL --branch gh-pages --single-branch output
 
 # Update the output directory with recent changes.
 wok
@@ -31,7 +35,7 @@ wok
 cd output
 git add .
 git commit -m "[skip ci]  Auto-commit.  Built latest changes."
-git push
+git push $REPO_URL gh-pages
 
 # Clean up.
 rm -rf .git
