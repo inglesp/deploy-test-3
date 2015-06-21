@@ -5,17 +5,17 @@ set -e
 echo TRAVIS_BRANCH: $TRAVIS_BRANCH
 echo TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST
 
-if [[ $TRAVIS = "true" && $TRAVIS_BRANCH != "master" ]]; then
-	# Bail out if Travis is not building master.  This happens when Travis
-	# is building a Pull Request.
-	echo "Not deploying!"
-	exit 0
+if [[ $TRAVIS = "true" ]]; then
+	if [[ $TRAVIS_BRANCH != "master" || $TRAVIS_PULL_REQUEST != "false" ]]; then
+		# Bail out if Travis is building a branch or is building a Pull Request.
+		echo "Not deploying!"
+		exit 0
+	fi
 fi
 
 echo "Deploying!"
 
-# Remove output directory and replace it with the current tip of the gh-pages
-# branch.
+# Remove output directory and replace it with the current tip of the gh-pages branch.
 rm -rf output
 git clone https://github.com/inglesp/deploy-test-3.org --branch gh-pages --single-branch output
 
@@ -28,8 +28,7 @@ git add .
 git commit -m "[skip ci]  Auto-commit.  Built latest changes"
 
 if [[ $TRAVIS = "true" ]]; then
-	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured
-	# via Travis web UI.
+	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured via Travis web UI.
 	git config credential.helper "store --file=.git/credentials"
 	echo "https://inglesp:$GH_TOKEN@github.com" > .git/credentials
 
