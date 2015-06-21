@@ -2,6 +2,9 @@
 
 set -e
 
+echo TRAVIS_BRANCH: $TRAVIS_BRANCH
+echo TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST
+
 if [[ $TRAVIS = "true" && $TRAVIS_BRANCH != "master" ]]; then
 	# Bail out if Travis is not building master.  This happens when Travis
 	# is building a Pull Request.
