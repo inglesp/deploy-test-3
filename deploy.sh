@@ -8,6 +8,14 @@ if [[ $TRAVIS = "true" ]]; then
 		echo "Not deploying!"
 		exit 0
 	fi
+
+	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured via Travis web UI.
+	git config --global credential.helper "store --file=$TRAVIS_BUILD_DIR/git-credentials"
+	echo "https://inglesp:$GH_TOKEN@github.com" > $TRAVIS_BUILD_DIR/git-credentials
+
+	# Set up config for committing.
+	git config --global user.name "Travis"
+	git config --global user.email "no-reply@pyconuk.org"
 fi
 
 echo "Deploying!"
@@ -19,29 +27,13 @@ git clone https://github.com/inglesp/deploy-test-3 --branch gh-pages --single-br
 # Update the output directory with recent changes.
 wok
 
-cd output
-
-if [[ $TRAVIS = "true" ]]; then
-	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured via Travis web UI.
-	git config --global credential.helper "store --file=$TRAVIS_BUILD_DIR/git-credentials"
-	echo "https://inglesp:$GH_TOKEN@github.com" > $TRAVIS_BUILD_DIR/git-credentials
-
-	# Set up config for committing.
-	git config --global user.name "Travis"
-	git config --global user.email "no-reply@pyconuk.org"
-fi
-
 # Add and commit any changes.
+cd output
 git add .
 git commit -m "[skip ci]  Auto-commit.  Built latest changes."
 
-if [[ $TRAVIS = "true" ]]; then
-	# Push to GitHub.
-	git push https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
-else
-	# Push to GitHub.
-	git push
-fi
+# Push to GitHub.
+git push https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
 
 # Clean up.
 rm -rf .git
