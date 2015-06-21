@@ -4,6 +4,7 @@ set -e
 
 echo TRAVIS_BRANCH: $TRAVIS_BRANCH
 echo TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST
+echo TRAVIS: $TRAVIS
 
 if [[ $TRAVIS = "true" ]]; then
 	if [[ $TRAVIS_BRANCH != "master" || $TRAVIS_PULL_REQUEST != "false" ]]; then
@@ -41,6 +42,8 @@ if [[ $TRAVIS = "true" ]]; then
 	# Push to GitHub.
 	git push https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
 else
+	echo "Deploying from not-Travis"
+
 	# Push to GitHub.
 	git push
 fi
