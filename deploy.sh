@@ -28,6 +28,8 @@ git add .
 git commit -m "[skip ci]  Auto-commit.  Built latest changes"
 
 if [[ $TRAVIS = "true" ]]; then
+	echo "Deploying from Travis"
+
 	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured via Travis web UI.
 	git config credential.helper "store --file=.git/credentials"
 	echo "https://inglesp:$GH_TOKEN@github.com" > .git/credentials
