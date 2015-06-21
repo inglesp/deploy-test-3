@@ -12,6 +12,14 @@ if [[ $TRAVIS = "true" ]]; then
 		echo "Not deploying!"
 		exit 0
 	fi
+
+	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured via Travis web UI.
+	git config credential.helper "store --file=.git/credentials"
+	echo "https://inglesp:$GH_TOKEN@github.com" > .git/credentials
+
+	# Set up config for committing.
+	git config user.name "Travis"
+	git config user.email "no-reply@pyconuk.org"
 fi
 
 echo "Deploying!"
@@ -29,21 +37,9 @@ git add .
 git commit -m "[skip ci]  Auto-commit.  Built latest changes"
 
 if [[ $TRAVIS = "true" ]]; then
-	echo "Deploying from Travis"
-
-	# Set up credentials for pushing to GitHub.  $GH_TOKEN is configured via Travis web UI.
-	git config credential.helper "store --file=.git/credentials"
-	echo "https://inglesp:$GH_TOKEN@github.com" > .git/credentials
-
-	# Set up config for committing.
-	git config user.name "Travis"
-	git config user.email "no-reply@pyconuk.org"
-
 	# Push to GitHub.
 	git push https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
 else
-	echo "Deploying from not-Travis"
-
 	# Push to GitHub.
 	git push
 fi
