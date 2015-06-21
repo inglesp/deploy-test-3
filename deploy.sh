@@ -22,18 +22,16 @@ echo "Deploying!"
 
 # Remove output directory and replace it with the current tip of the gh-pages branch.
 rm -rf output
-git clone https://github.com/inglesp/deploy-test-3 --branch gh-pages --single-branch output
+git clone git@github.com:inglesp/deploy-test-3.git --branch gh-pages --single-branch output
 
 # Update the output directory with recent changes.
 wok
 
-# Add and commit any changes.
+# Add, commit, and push any changes.
 cd output
 git add .
 git commit -m "[skip ci]  Auto-commit.  Built latest changes."
-
-# Push to GitHub.
-git push https://inglesp@github.com/inglesp/deploy-test-3 gh-pages
+git push
 
 # Clean up.
 rm -rf .git
