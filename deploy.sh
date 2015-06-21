@@ -20,7 +20,7 @@ rm -rf output
 git clone https://github.com/inglesp/deploy-test-3 --branch gh-pages --single-branch output
 
 # Update the output directory with recent changes.
-make build
+wok
 
 # Add and commit any changes.
 pushd output
